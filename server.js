@@ -34,4 +34,4 @@ app.use("/api/posts", postRoute);
 
 
 
-app.listen(PORT, () => console.log("サーバーが起動しました"));
+app.listen(PORT, () => console.log("サーバーが起動しました"));　
