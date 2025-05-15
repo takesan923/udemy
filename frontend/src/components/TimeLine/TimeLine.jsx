@@ -2,6 +2,8 @@ import React from 'react'
 import "./TimeLine.css"
 import Share from '../Share/Share'
 import Post from '../Post/Post'
+import { Posts } from '../../DummyData'
+
 
 
 export default function TimeLine() {
@@ -9,7 +11,9 @@ export default function TimeLine() {
     <div className='timeline'>
       <div className="timelineWrapper">
         <Share />
-        <Post />
+        {Posts.map((post) => (
+          <Post post = {post} key ={post.id} />
+        ))}
       </div>
     </div>
   )
