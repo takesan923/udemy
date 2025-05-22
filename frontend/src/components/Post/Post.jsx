@@ -3,10 +3,12 @@ import "./Post.css";
 import { MoreVert } from "@mui/icons-material";
 // import { Users } from "../../DummyData";
 import axios from "axios";
+import { format } from "timeago.js";
+
 
 export default function Post({ post }) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
-  const [like, setlike] = useState(post.like);
+  const [like, setlike] = useState(post.likes.length);
   const [isliked, setIslike] = useState(false);
   const [user, setUser] = useState({});
 
@@ -19,7 +21,7 @@ export default function Post({ post }) {
     fetchUser();
   }, []);
 
-  const handlelile = () => {
+  const handlelike = () => {
     setlike(isliked ? like - 1 : like + 1);
     setIslike(!isliked);
   };
@@ -29,11 +31,13 @@ export default function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img src={user.profilePicture} alt="" className="postProfileImg" />
-            <span className="postUsername">
-              {user.username}
-            </span>
-            <span className="postDate">{post.date}</span>
+            <img
+              src={user.profilePicture || PUBLIC_FOLDER + "/person/noAvatar.png"}
+              alt=""
+              className="postProfileImg"
+            />
+            <span className="postUsername">{user.username}</span>
+            <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <div className="postTopRight">
             <MoreVert />
@@ -41,7 +45,7 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
-          <img src={PUBLIC_FOLDER + post.photo} alt="" className="postImg" />
+          <img src={PUBLIC_FOLDER + post.img} alt="" className="postImg" />
         </div>
         <div className="postButtom">
           <div className="postButtomLeft">
@@ -49,7 +53,7 @@ export default function Post({ post }) {
               src={PUBLIC_FOLDER + "/heart.png"}
               alt=""
               className="likeIcon"
-              onClick={() => handlelile()}
+              onClick={() => handlelike()}
             />
             <span className="postLikeCounter">
               {" "}
