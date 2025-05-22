@@ -1,11 +1,12 @@
 import React from 'react'
 
 export default function CloseFriend({user}) {
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <li className="sidebarFriend">
         <img 
             className='sidebarFriendImg'
-            src={user.profilePicture}
+            src={PUBLIC_FOLDER + user.profilePicture}
             alt="" 
         />
         <span className="sidebarFriendName">{user.username}</span>
