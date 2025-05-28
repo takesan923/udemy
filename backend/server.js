@@ -3,6 +3,8 @@ const app = express();
 const usersRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
+const uploadRoute = require("./routes/upload");
+const path = require("path");
 const PORT = 5000;
 const mongoose = require("mongoose");
 require("dotenv").config();
@@ -19,10 +21,12 @@ mongoose.connect(process.env.MONGOURL)
 });
 
 //ミドルウェアの開発
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use(express.json());
 app.use("/api/users", usersRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
+app.use("/api/upload", uploadRoute);
 
 // app.get("/",(req, res) =>{
 //     res.send("Hello express");
